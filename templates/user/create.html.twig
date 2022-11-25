@@ -1,0 +1,33 @@
+{% extends "layout/layout.html.twig" %}
+
+
+{% block content %}
+	<section class=" flex justify-center py-10 min-h-screen flex-col items-center text-ellipsis ">
+
+		{{ form_start(userForm, {'attr' : {'class' : 'flex flex-col transition duration-150 ease-out w-1/3 bg-gray-200 px-4 py-6 rounded shadow-md' } }) }}
+
+		{{ form_label(userForm.username,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(userForm.username,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(userForm.username) }}</span>
+
+		{{ form_label(userForm.email,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(userForm.email,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(userForm.email) }}</span>
+
+		{{ form_label(userForm.roles,'Role',{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(userForm.roles,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(userForm.roles) }}</span>
+
+		{{ form_label(userForm.password.first,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(userForm.password.first,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(userForm.password.first) }}</span>
+        
+        {{ form_label(userForm.password.second,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(userForm.password.second,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(userForm.password.second) }}</span>
+
+		{{ form_widget(userForm.submit, { 'label' : 'Create User', 'attr' : { 'class' : 'rounded border border-2 border-green-700 bg-green-700 py-2 text-sm text-white font-bold hover:text-green-700 hover:bg-white hover:border-green-700 transition duration-150 ease-out disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-no-drop disabled:hover:text-white' } ,'disabled' : false }) }}
+
+		{{ form_end(userForm) }}
+	</section>
+{% endblock %}

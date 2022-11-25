@@ -1,0 +1,40 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block content %}
+	<section class="flex gap-6 py-10 flex-col items-center text-ellipsis ">
+    <h1 class="text-3xl font-bold text-violet-600 self-start ml-14">Users:</h1>
+		<table class="table justify-self-center place-self-center">
+			<thead class="table-header-group">
+				<tr>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Username</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Email</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Role(s)</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Email Verified</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Created</th>
+					<th class="bg-blue-700 text-white px-2 py-2 border border-gray-500">
+						<a href="user/create" class="">
+							New
+							<i class="fa-solid fa-user-plus"></i>
+						</a>
+					</th>
+				</tr>
+			</thead>
+			<tbody class="border border-black">
+				{% for user in users %}
+					<tr class="bg-white ">
+						<td class="py-1 px-7">{{user.username}}</td>
+						<td class="py-1 px-7">{{user.email}}</td>
+						<td class="py-1 px-7">{{user.getExactRoles()|join(',') }}</td>
+						<td class="py-1 px-7">{{user.isVerified ? 'Veriefied' : 'Unveriefied'}}</td>
+						<td class="py-1 px-7">{{user.getHumanCreatedAt() }}</td>
+						<td class="py-1 px-7">
+							<a href="user/edit/{{user.id}}" class="text-sm text-green-600 py-0 px-4 ">
+								<i class="fa-solid fa-user-pen"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

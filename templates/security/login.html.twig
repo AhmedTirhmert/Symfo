@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+	<section class=" flex justify-center gap-6 py-10 min-h-screen flex-col items-center text-ellipsis ">
+
+		<form method="post" class="flex flex-col transition px-4 py-6 duration-150 ease-out w-1/3 bg-gray-100 shadow shadow-lg border border-gray-200 rounded rounded-md">
+			{% if error %}
+				<div class="bg-red-400  rounded rounded-md py-4 px-3 text-sm font-semibold mb-10 drop-shadow-sm ">
+					{{ error.messageKey|trans(error.messageData, 'security') }}
+				</div>
+			{% endif %}
+
+			<h1 class="text-3xl font-bold mb-8 text-center">Login</h1>
+
+
+			<label class="text-black text-sm mb-1" for="inputEmail">Email</label>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="py-1 px-2 mb-4 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out" autocomplete="email" required autofocus>
+
+
+			<label class="text-black text-sm mb-1" for="inputPassword">Password</label>
+			<input type="password" name="password" id="inputPassword" class="py-1 px-2 mb-4 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out" autocomplete="current-password" required>
+
+			<input
+			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+			{# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+																																		        See https://symfony.com/doc/current/security/remember_me.html #}
+
+			<div class="flex justify-between items-center px-1  mb-4">
+				<label class="cursor-pointer text-sm" for="rememberMe">Remember me</label>
+				<input class="cursor-pointer" type="checkbox" id="rememberMe" name="_remember_me">
+			</div>
+
+
+			<button class="mt-7 rounded border border-2 border-green-700 bg-green-700 py-2 text-sm text-white font-bold hover:text-green-700 hover:bg-white hover:border-green-700 transition duration-150 ease-out disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-no-drop disabled:hover:text-white" type="submit">
+				Sign in
+			</button>
+			<span class="font-semibold text-center mt-7">New here?
+				<span class="text-green-700">
+					<a href="{{path('app_register')}}">Create account.</a>
+				</span>
+			</span>
+		</form>
+
+
+	</section>
+{% endblock %}

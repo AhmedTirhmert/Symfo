@@ -1,0 +1,21 @@
+<header class="bg-violet-600 h-12 px-10  flex items-center justify-between shadow-md text-white">
+	<div class="font-bold text-xl " id="logo">
+		SYMFO
+	</div>
+	<ul class="flex items-center justify-center gap-1 text-sm  h-full ">
+		<li class=" h-full ">
+			<a class="h-full text-center px-3 flex items-center hover:bg-violet-100 hover:text-gray-600 transition ease-in-out duration-300 {{app.request.attributes.get('_route') == 'player_index' ? 'border-b-2 border-b-white' : ''}}" href="{{ path('player_index') }}">Players</a>
+		</li>
+		{% if is_granted('ROLE_ADMIN') %}
+			<li class=" h-full ">
+				<a class="h-full text-center px-3 flex items-center hover:bg-violet-100 hover:text-gray-600 transition ease-in-out duration-300 {{app.request.attributes.get('_route') == 'user_index' ? 'border-b-2 border-b-white' : ''}}" href="{{ path('user_index') }}">Users</a>
+			</li>
+		{% endif %}
+		<li class=" h-full ">
+			<a class="h-full text-center px-3 flex items-center hover:bg-violet-100 hover:text-gray-600 transition ease-in-out duration-300" href="{{ path('app_logout') }}">
+				<span class="font-bold capitalize mr-1">{{ app.user.username }}</span>
+				<i class="fa-solid fa-right-from-bracket mt-1"></i>
+			</a>
+		</li>
+	</ul>
+</header>
