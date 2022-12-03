@@ -12,8 +12,10 @@
 					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Weight (Kg)</th>
 					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Team</th>
 					{% if is_granted('ROLE_ADMIN') %}
-						<th class="border border-gray-500 bg-gray-300">
-							<a href="player/create" class="text-white bg-gray-700 px-2 py-2">Add new player</a>
+						<th class="bg-blue-700 text-white px-2 py-2 border border-gray-500">
+							<a href="player/create" class="">New 
+								<i class="fa-solid fa-user-plus"></i>
+							</a>
 						</th>
 					{% endif %}
 				</tr>
@@ -31,7 +33,9 @@
 						</td>
 						{% if is_granted('ROLE_ADMIN') %}
 							<td class="py-1 px-7">
-								<a href="player/edit/{{player.id}}" class="text-sm bg-green-300 py-0 px-4 ">Edit</a>
+								<a href="player/edit/{{player.id}}" class="text-sm text-green-600 py-0 px-4">
+									<i class="fa-solid fa-user-pen"></i>
+								</a>
 							</td>
 						{% endif %}
 					</tr>

@@ -39,7 +39,8 @@ class PlayerController extends AbstractController
         $playerForm = $this->createForm(PlayerFormType::class, $player, ['action' => $this->generateUrl('player_store')]);
 
         return $this->render('player/create.html.twig', [
-            'playerForm' => $playerForm->createView()
+            'playerForm' => $playerForm->createView(),
+            'title' => 'Create Player'
         ]);
     }
 

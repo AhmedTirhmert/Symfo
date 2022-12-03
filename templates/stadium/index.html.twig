@@ -1,0 +1,45 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block title %}Symfo -
+	{{title}}
+{% endblock %}
+
+{% block content %}
+	<section class="flex gap-6 py-10 flex-col items-center text-ellipsis ">
+		<h1 class="text-3xl font-bold text-violet-600 self-start ml-14">{{title}}:</h1>
+		<table class="table justify-self-center place-self-center">
+			<thead class="table-header-group">
+				<tr>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Name</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Capacity</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">City</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Country</th>
+					{% if is_granted('ROLE_ADMIN') %}
+						<th class="bg-blue-700 text-white px-2 py-2 border border-gray-500">
+							<a href="{{path('stadium_create')}}">Create stadium
+								<i class="fa-solid fa-plus"></i>
+							</a>
+						</th>
+					{% endif %}
+				</tr>
+			</thead>
+			<tbody class="border border-black">
+				{% for stadium in stadiums %}
+					<tr class="bg-white ">
+						<td class="py-1 px-7">{{stadium.name}}</td>
+						<td class="py-1 px-2 text-right">{{stadium.capacity|number_format(0, '.', ' ')}}</td>
+						<td class="py-1 px-7">{{stadium.getCityId().name}}</td>
+						<td class="py-1 px-7">{{stadium.getCityId().getCountryId().name}}</td>
+						{% if is_granted('ROLE_ADMIN') %}
+							<td class="py-1 px-7">
+								<a href="stadium/edit/{{stadium.id}}" class="text-sm text-green-600 py-0 px-4">
+									<i class="fa-solid fa-pen"></i>
+								</a>
+							</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

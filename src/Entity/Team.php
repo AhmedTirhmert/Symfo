@@ -7,17 +7,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
+#[UniqueEntity(fields: ['name', 'shortName'], message: 'Name already taken')]
 class Team
 {
-    
+
     /**
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
      */
-    use TimestampableEntity;
+    use TimestampableEntity {
+        TimestampableEntity::__construct as private timeStamps;
+    }
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -47,6 +50,9 @@ class Team
 
     public function __construct()
     {
+        $this->timeStamps();
+        $this->setTeamFifaId(rand(min: 1, max: 10000));
+        $this->setTeamApiId(rand(min: 1, max: 10000));
         $this->players = new ArrayCollection();
     }
 
@@ -79,30 +85,6 @@ class Team
         return $this;
     }
 
-    public function getApiId(): ?int
-    {
-        return $this->apiId;
-    }
-
-    public function setApiId(int $apiId): self
-    {
-        $this->apiId = $apiId;
-
-        return $this;
-    }
-
-    public function getFifaApiId(): ?int
-    {
-        return $this->fifaApiId;
-    }
-
-    public function setFifaApiId(int $fifaApiId): self
-    {
-        $this->fifaApiId = $fifaApiId;
-
-        return $this;
-    }
-
     public function getTeamApiId(): ?int
     {
         return $this->team_api_id;
@@ -123,30 +105,6 @@ class Team
     public function setTeamFifaId(int $team_fifa_id): self
     {
         $this->team_fifa_id = $team_fifa_id;
-
-        return $this;
-    }
-
-    public function getTeamLongName(): ?string
-    {
-        return $this->team_long_name;
-    }
-
-    public function setTeamLongName(string $team_long_name): self
-    {
-        $this->team_long_name = $team_long_name;
-
-        return $this;
-    }
-
-    public function getTeamShortName(): ?string
-    {
-        return $this->team_short_name;
-    }
-
-    public function setTeamShortName(string $team_short_name): self
-    {
-        $this->team_short_name = $team_short_name;
 
         return $this;
     }

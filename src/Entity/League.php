@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: LeagueRepository::class)]
+#[UniqueEntity(fields: ['name', 'country_id'], message: 'League already existe')]
 class League
 {
 
@@ -16,7 +18,9 @@ class League
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
      */
-    use TimestampableEntity;
+    use TimestampableEntity {
+        TimestampableEntity::__construct as private timeStamps;
+    }
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,6 +38,7 @@ class League
 
     public function __construct()
     {
+        $this->timeStamps();
         $this->teams = new ArrayCollection();
     }
 

@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CityRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
+#[UniqueEntity(fields: ['name','country_id'], message: 'City already existe')]
 class City
 {
 
@@ -16,7 +18,9 @@ class City
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
      */
-    use TimestampableEntity;
+    use TimestampableEntity {
+        TimestampableEntity::__construct as private timeStamps;
+    }
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,7 +38,8 @@ class City
 
     public function __construct()
     {
-        $this->stadia = new ArrayCollection();
+        $this->timeStamps();
+        $this->stadiums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,8 +81,8 @@ class City
 
     public function addStadium(Stadium $stadium): self
     {
-        if (!$this->stadia->contains($stadium)) {
-            $this->stadia->add($stadium);
+        if (!$this->stadiums->contains($stadium)) {
+            $this->stadiums->add($stadium);
             $stadium->setCityId($this);
         }
 
@@ -86,7 +91,7 @@ class City
 
     public function removeStadium(Stadium $stadium): self
     {
-        if ($this->stadia->removeElement($stadium)) {
+        if ($this->stadiums->removeElement($stadium)) {
             // set the owning side to null (unless already changed)
             if ($stadium->getCityId() === $this) {
                 $stadium->setCityId(null);

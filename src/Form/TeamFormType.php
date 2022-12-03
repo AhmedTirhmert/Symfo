@@ -3,28 +3,25 @@
 namespace App\Form;
 
 use App\Entity\Team;
+use App\Entity\League;
+use App\Entity\Stadium;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TeamFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('shortName')
-            ->add('apiId')
-            ->add('fifaApiId')
-            ->add('team_api_id')
-            ->add('team_fifa_id')
-            ->add('team_long_name')
-            ->add('team_short_name')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('league_id')
-            ->add('stadium_id')
-        ;
+            ->add('name', TextType::class)
+            ->add('shortName', TextType::class)
+            ->add('league_id', EntityType::class, ['class' => League::class, 'choice_label' => 'name'])
+            ->add('stadium_id', EntityType::class, ['class' => Stadium::class, 'choice_label' => 'name'])
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

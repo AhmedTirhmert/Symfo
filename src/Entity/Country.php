@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'Country already existe')]
 class Country
 {
 
@@ -16,15 +18,17 @@ class Country
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
      */
-    use TimestampableEntity;
-    
+    use TimestampableEntity {
+        TimestampableEntity::__construct as private timeStamps;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    private ?string $namme = null;
+    private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'country_id', targetEntity: League::class)]
     private Collection $leagues;
@@ -32,8 +36,19 @@ class Country
     #[ORM\OneToMany(mappedBy: 'country_id', targetEntity: City::class)]
     private Collection $cities;
 
+    #[ORM\ManyToOne(inversedBy: 'countries')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Region $region = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $population = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $area = null;
+
     public function __construct()
     {
+        $this->timeStamps();
         $this->leagues = new ArrayCollection();
         $this->cities = new ArrayCollection();
     }
@@ -43,14 +58,14 @@ class Country
         return $this->id;
     }
 
-    public function getNamme(): ?string
+    public function getname(): ?string
     {
-        return $this->namme;
+        return $this->name;
     }
 
-    public function setNamme(string $namme): self
+    public function setname(string $name): self
     {
-        $this->namme = $namme;
+        $this->name = $name;
 
         return $this;
     }
@@ -111,6 +126,42 @@ class Country
                 $city->setCountryId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getPopulation(): ?int
+    {
+        return $this->population;
+    }
+
+    public function setPopulation(?int $population): self
+    {
+        $this->population = $population;
+
+        return $this;
+    }
+
+    public function getArea(): ?int
+    {
+        return $this->area;
+    }
+
+    public function setArea(?int $area): self
+    {
+        $this->area = $area;
 
         return $this;
     }

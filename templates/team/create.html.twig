@@ -1,0 +1,44 @@
+{% extends template is defined ? "components/form.html.twig" : "layout/layout.html.twig" %}
+{% block content %}
+	<section class=" flex justify-center py-10 min-h-screen flex-col items-center text-ellipsis gap-7 " data-controller='team' data-team-target="formContainer">
+
+
+		{{ form_start(teamForm, {'attr' : {'class' : 'relative flex flex-col transition duration-150 ease-out bg-gray-200 px-4 py-6 rounded shadow-md' ,'data-team-target':'form','data-action':'team#onSubmit'} }) }}
+		<div class="flex absolute w-full h-full bg-slate-500/50 top-0 left-0 rounded hidden items-center justify-center" data-team-target="loader">
+			<svg class=" animate-spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200px" height="200px" viewbox="0 0 100 100" preserveaspectratio="xMidYMid" style="margin-right:-2px;display:block">
+				<circle class="stroke-white" cx="50" cy="50" fill="none" stroke="#e15b64" stroke-width="5" r="27" stroke-dasharray="127.23450247038662 44.411500823462205" transform="matrix(1,0,0,1,0,0)" style="transform:matrix(1, 0, 0, 1, 0, 0)"></circle>
+			</svg>
+		</div>
+		<h1 class="text-center text-4xl text-violet-600 font-bold mb-6">{{title}}</h1>
+
+		{{ form_label(teamForm.name,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(teamForm.name,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(teamForm.name) }}</span>
+
+		{{ form_label(teamForm.shortName,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(teamForm.shortName,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(teamForm.shortName) }}</span>
+
+		{{ form_label(teamForm.league_id,'League',{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		<div class="flex items-center gap-1 justify-between">
+			{{ form_widget(teamForm.league_id,{'attr' : { 'class' : 'w-full py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+			<a href="{{path('league_create')}}">
+				<i class="fa fa-plus bg-white py-2 px-2 rounded shadow-md"></i>
+			</a>
+		</div>
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(teamForm.league_id) }}</span>
+
+		{{ form_label(teamForm.stadium_id,'Stadium',{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		<div class="flex items-center gap-1 justify-between">
+			{{ form_widget(teamForm.stadium_id,{'attr' : { 'class' : 'w-full py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+			<a href="{{path('stadium_create')}}">
+				<i class="fa fa-plus bg-white py-2 px-2 rounded shadow-md"></i>
+			</a>
+		</div>
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(teamForm.stadium_id) }}</span>
+
+		{{ form_widget(teamForm.submit, { 'label' : 'Add Team', 'attr' : { 'class' : 'rounded border border-2 border-green-700 bg-green-700 py-2 text-sm text-white font-bold hover:text-green-700 hover:bg-white hover:border-green-700 transition duration-150 ease-out disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-no-drop disabled:hover:text-white' } ,'disabled' : false }) }}
+
+		{{ form_end(teamForm) }}
+	</section>
+{% endblock %}

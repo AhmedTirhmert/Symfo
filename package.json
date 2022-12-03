@@ -31,6 +31,7 @@
     "dependencies": {
         "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
         "@vue/babel-preset-jsx": "^1.4.0",
+        "axios": "^1.2.0",
         "ts-loader": "^9.4.1",
         "typescript": "^4.9.3",
         "vue": "^3.2.45",

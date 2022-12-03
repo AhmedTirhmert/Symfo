@@ -1,0 +1,27 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block content %}
+	<section class=" flex justify-center py-10 min-h-screen flex-col items-center text-ellipsis gap-7">
+		<h1 class="text-center text-4xl text-violet-600 font-bold">{{title}}</h1>
+
+		{{ form_start(leagueForm, {'attr' : {'class' : 'flex flex-col transition duration-150 ease-out w-1/3 bg-gray-200 px-4 py-6 rounded shadow-md' } }) }}
+
+		{{ form_label(leagueForm.name,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		{{ form_widget(leagueForm.name,{'attr' : { 'class' : 'py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(leagueForm.name) }}</span>
+
+		{{ form_label(leagueForm.country_id,'Country',{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}
+		<div class="flex items-center gap-1 justify-between">
+			{{ form_widget(leagueForm.country_id,{'attr' : { 'class' : 'w-full py-1 px-2 placeholder:text-gray-400 shadow-md outline-none rounded border focus:ring-green-600 focus:ring-1 focus:border-green-600 transition duration-150 ease-out'}}) }}
+			<a href="{{path('country_create')}}">
+				<i class="fa fa-plus bg-white py-2 px-2 rounded shadow-md"></i>
+			</a>
+		</div>
+		<span class="text-sm text-red-500 font-bold mb-3 mt-1">{{ form_errors(leagueForm.country_id) }}</span>
+
+
+		{{ form_widget(leagueForm.submit, { 'label' : 'Update League', 'attr' : { 'class' : 'mt-4 rounded border border-2 border-green-700 bg-green-700 py-2 text-sm text-white font-bold hover:text-green-700 hover:bg-white hover:border-green-700 transition duration-150 ease-out disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-no-drop disabled:hover:text-white' } ,'disabled' : false }) }}
+
+		{{ form_end(leagueForm) }}
+	</section>
+{% endblock %}
