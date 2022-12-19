@@ -22,7 +22,7 @@ class StadiumController extends AbstractController
     #[Route('/stadiums', name: 'stadium_index')]
     public function index(): Response
     {
-        $stadiums = $this->stadiumRepository->findBy(orderBy:['capacity' => 'DESC'],criteria:[]);
+        $stadiums = $this->stadiumRepository->findBy(orderBy: ['capacity' => 'DESC'], criteria: []);
         return $this->render('stadium/index.html.twig', [
             'stadiums' => $stadiums,
             'title' => 'stadiums'
@@ -47,5 +47,14 @@ class StadiumController extends AbstractController
     #[Route('/stadium/update', name: 'stadium_update')]
     public function update(Request $request): Response
     {
+    }
+
+
+    #[Route('/stadium/show/{id}', name: 'stadium_show')]
+    public function show($id): Response
+    {
+        $stadium = $this->stadiumRepository->find($id);
+
+        return $this->render(view: 'stadium/show.html.twig', parameters: ['stadium' => $stadium]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CityRepository;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
-#[UniqueEntity(fields: ['name','country_id'], message: 'City already existe')]
+#[UniqueEntity(fields: ['name', 'country_id'], message: 'City already existe')]
 class City
 {
 
@@ -35,6 +36,15 @@ class City
 
     #[ORM\OneToMany(mappedBy: 'city_id', targetEntity: Stadium::class)]
     private Collection $stadiums;
+
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    private ?string $latitude = null;
+
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    private ?string $longitude = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $population = null;
 
     public function __construct()
     {
@@ -97,6 +107,42 @@ class City
                 $stadium->setCityId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?string $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getPopulation(): ?int
+    {
+        return $this->population;
+    }
+
+    public function setPopulation(?int $population): self
+    {
+        $this->population = $population;
 
         return $this;
     }

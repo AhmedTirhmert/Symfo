@@ -1,0 +1,27 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block content %}
+	<section class="flex gap-6 py-10 flex-col items-center text-ellipsis ">
+		<h1 class="text-3xl font-bold text-violet-600 self-start ml-14">Region :</h1>
+
+		<table class="table justify-self-center place-self-center">
+			<tbody class="border border-black">
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Name</td>
+					<td class="py-1 px-7 border border-gray-500">{{ region.name }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td rowspan="{{(region.getCountries()|length) + 1}}" class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Countries</td>
+				</tr>
+
+				{% for country in region.getCountries() %}
+					<tr class="bg-white ">
+						<td class="py-1 px-7">
+							<a class="text-violet-600 hover:text-black font-semibold" href="{{path('country_show',{id:country.id})}}">{{ country.name }}</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

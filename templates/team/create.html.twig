@@ -2,13 +2,13 @@
 {% block content %}
 	<section class=" flex justify-center py-10 min-h-screen flex-col items-center text-ellipsis gap-7 " data-controller='team' data-team-target="formContainer">
 
-
 		{{ form_start(teamForm, {'attr' : {'class' : 'relative flex flex-col transition duration-150 ease-out bg-gray-200 px-4 py-6 rounded shadow-md' ,'data-team-target':'form','data-action':'team#onSubmit'} }) }}
 		<div class="flex absolute w-full h-full bg-slate-500/50 top-0 left-0 rounded hidden items-center justify-center" data-team-target="loader">
 			<svg class=" animate-spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200px" height="200px" viewbox="0 0 100 100" preserveaspectratio="xMidYMid" style="margin-right:-2px;display:block">
 				<circle class="stroke-white" cx="50" cy="50" fill="none" stroke="#e15b64" stroke-width="5" r="27" stroke-dasharray="127.23450247038662 44.411500823462205" transform="matrix(1,0,0,1,0,0)" style="transform:matrix(1, 0, 0, 1, 0, 0)"></circle>
 			</svg>
 		</div>
+		
 		<h1 class="text-center text-4xl text-violet-600 font-bold mb-6">{{title}}</h1>
 
 		{{ form_label(teamForm.name,null,{'label_attr' : {'class' : 'text-black text-sm mb-1'}}) }}

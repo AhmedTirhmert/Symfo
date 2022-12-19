@@ -2,6 +2,7 @@
 
 import { Controller } from '@hotwired/stimulus';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 /*
  * This is an example Stimulus controller!
  *
@@ -19,8 +20,20 @@ export default class extends Controller {
   static newTeamForm;
   async loadForm(e) {
     e.preventDefault();
-    let { data } = await axios.get('/api/team/create');
-    this.newTeamForm.innerHTML = data.form
+    Swal.fire({
+      html: '<div></div>',
+      showConfirmButton: false,
+      didOpen: async () => {
+        Swal.showLoading();
+        const html = Swal.getHtmlContainer().querySelector('div');
+        let { data } = await axios.get('/api/team/create');
+        let section = document.createElement('section');
+        section.innerHTML = data.form;
+        html.append(section.querySelector('section'));
+        Swal.hideLoading();
+        console.log(html);
+      },
+    });
   }
   connect() {
     this.formContainer = this.formContainerTarget;

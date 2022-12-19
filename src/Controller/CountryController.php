@@ -59,4 +59,10 @@ class CountryController extends AbstractController
     public function update(Request $request): Response
     {
     }
+    #[Route(path: '/country/show/{id}', name: 'country_show')]
+    public function show($id): Response
+    {
+        $country = $this->countryRepository->find($id);
+        return $this->render(view: 'country/show.html.twig', parameters: ['country' => $country]);
+    }
 }

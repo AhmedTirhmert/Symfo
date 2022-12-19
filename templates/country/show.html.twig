@@ -1,0 +1,38 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block content %}
+	<section class="flex gap-6 py-10 flex-col items-center text-ellipsis ">
+		<h1 class="text-3xl font-bold text-violet-600 self-start ml-14">Country :</h1>
+
+		<table class="table justify-self-center place-self-center">
+			<tbody class="border border-black ">
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Name</td>
+					<td class="py-1 px-7 border border-gray-500">{{ country.name }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Population</td>
+					<td class="py-1 px-7 border border-gray-500 text-right">{{ country.population|number_format(2, '.', ' ') }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Aream (m²)</td>
+					<td class="py-1 px-7 border border-gray-500 text-right">{{ country.area|number_format(2, '.', ' ') }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td rowspan="{{(country.getCities()|length) + 1}}" class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Cities</td>
+					{% if country.getCities()|length == 0 %}
+						<td class="py-1 px-7">No cities found</td>
+					{% endif %}
+				</tr>
+
+				{% for city in country.getCities() %}
+					<tr class="bg-white ">
+						<td class="py-1 px-7">
+							<a class="text-violet-600 hover:text-black font-semibold" href="{{path('city_show',{id:city.id})}}">{{ city.name }}</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

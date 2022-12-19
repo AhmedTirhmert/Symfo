@@ -76,12 +76,10 @@ class TeamController extends AbstractController
                 'message' => 'Team Created Successfully'
             ], 200);
         }
-        dd($newTeamForm->getErrors(true, true)[0]->getMessage());
-        foreach ($newTeamForm->getErrors(true, true) as $error) {
-            dd($error->getMessage());
-        }
+
+        $view = $this->renderView(view: 'team/create.html.twig', parameters: ['teamForm' => $newTeamForm->createView(), 'title' => 'Create Team', 'template' => false]);
         return $this->json([
-            'errors' => $newTeamForm->getErrors(true, true)
+            'form' => $view,
         ], 500);
     }
 }

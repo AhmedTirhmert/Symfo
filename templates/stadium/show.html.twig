@@ -1,0 +1,28 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block content %}
+	<section class="flex gap-6 py-10 flex-col items-center text-ellipsis ">
+		<h1 class="text-3xl font-bold text-violet-600 self-start ml-14">Stadium :</h1>
+
+		<table class="table justify-self-center place-self-center">
+			<tbody class="border border-black ">
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Name</td>
+					<td class="py-1 px-7 border border-gray-500 text-right">{{ stadium.name }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Capacity</td>
+					<td class="py-1 px-7 border border-gray-500 text-right">{{ stadium.capacity|number_format(2, '.', ' ') }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Location</td>
+					<td class="py-1 px-7 border border-gray-500 text-right">
+						<a class="text-violet-600 hover:text-black font-semibold" href="{{path('city_show',{id:stadium.getCityId().id})}}">{{ stadium.getCityId().name }}</a>
+						-
+						<a class="text-violet-600 hover:text-black font-semibold" href="{{path('country_show',{id:stadium.getCityId().getCountryId().id})}}">{{ stadium.getCityId().getCountryId().name }}</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

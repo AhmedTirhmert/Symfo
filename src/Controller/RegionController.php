@@ -24,4 +24,10 @@ class RegionController extends AbstractController
     public function create(): Response
     {
     }
+    #[Route(path: '/region/details/{id}', name: 'region_show')]
+    public function show($id): Response
+    {
+        $region = $this->regionRepository->find($id);
+        return $this->render(view: 'region/show.html.twig', parameters: ['region' => $region]);
+    }
 }

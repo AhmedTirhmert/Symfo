@@ -11,6 +11,8 @@
 			<thead class="table-header-group">
 				<tr>
 					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Name</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Population</th>
+					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Area (m²)</th>
 					<th class="border border-gray-500 px-4 py-2 bg-gray-300">Region</th>
 					{% if is_granted('ROLE_ADMIN') %}
 						<th class="bg-blue-700 text-white px-2 py-2 border border-gray-500">
@@ -24,8 +26,14 @@
 			<tbody class="border border-black">
 				{% for country in countries %}
 					<tr class="bg-white ">
-						<td class="py-1 px-7">{{country.name}}</td>
-						<td class="py-1 px-7">{{country.getRegion().name}}</td>
+						<td class="py-1 px-7">
+							<a class="text-black hover:text-violet-600 font-semibold" href="{{path('country_show',{"id" : country.id})}}">{{country.name}}</a>
+						</td>
+						<td class="py-1 px-7 text-right">{{country.population|number_format(2, '.', ' ')}}</td>
+						<td class="py-1 px-7 text-right">{{country.area|number_format(2, '.', ' ')}}</td>
+						<td class="py-1 px-7">
+							<a class="text-black hover:text-violet-600 font-semibold" href="{{path('region_show',{"id" : country.getRegion().id})}}">{{country.getRegion().name}}</a>
+						</td>
 						{% if is_granted('ROLE_ADMIN') %}
 							<td class="py-1 px-7">
 								<a href="country/edit/{{country.id}}" class="text-sm text-green-600 py-0 px-4">

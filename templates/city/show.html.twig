@@ -1,0 +1,49 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block content %}
+	<section class="flex gap-6 py-10 flex-col items-center text-ellipsis" data-controller="city">
+		<h1 class="text-3xl font-bold text-violet-600 self-start ml-14">City :</h1>
+
+		<table class="table justify-self-center place-self-center">
+			<tbody class="border border-black ">
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Name</td>
+					<td class="py-1 px-7 border border-gray-500">{{ city.name }}</td>
+				</tr>
+				{% if city.latitude is not null %}
+					<tr class="bg-white ">
+						<input type="hidden" data-city-target='latitude' value="{{city.latitude}}">
+						<input type="hidden" data-city-target='longitude' value="{{city.longitude}}">
+						<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Map</td>
+						<td class="border border-gray-500">
+							<div data-city-target='map' class="w-60 h-60"></div>
+						</td>
+					</tr>
+				{% endif %}
+
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Population</td>
+					<td class="py-1 px-7 border border-gray-500">{{ city.population is null ? 'Not Specified' : city.population|number_format(0, '.', ' ') }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Country</td>
+					<td class="py-1 px-7 border border-gray-500">{{ city.getCountryId().name }}</td>
+				</tr>
+				<tr class="bg-white ">
+					<td rowspan="{{(city.getStadiums()|length) + 1}}" class="py-1 px-7 border border-gray-500 px-4 py-2 bg-gray-300">Stadiums</td>
+					{% if city.getStadiums()|length == 0 %}
+						<td class="py-1 px-7">No Stadiums found</td>
+					{% endif %}
+				</tr>
+
+				{% for stadium in city.getStadiums() %}
+					<tr class="bg-white ">
+						<td class="py-1 px-7">
+							<a class="text-violet-600 hover:text-black font-semibold" href="{{path('stadium_show',{id:stadium.id})}}">{{ stadium.name }}</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

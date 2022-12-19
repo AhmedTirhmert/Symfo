@@ -18,6 +18,9 @@
 		<li class=" h-full ">
 			<a class="h-full text-center px-3 flex items-center hover:bg-violet-100 hover:text-gray-600 transition ease-in-out duration-300 {{app.request.attributes.get('_route') == 'country_index' ? 'border-b-2 border-b-white' : ''}}" href="{{ path('country_index') }}">Countries</a>
 		</li>
+		<li class=" h-full ">
+			<a class="h-full text-center px-3 flex items-center hover:bg-violet-100 hover:text-gray-600 transition ease-in-out duration-300 {{app.request.attributes.get('_route') == 'city_index' ? 'border-b-2 border-b-white' : ''}}" href="{{ path('city_index') }}">Cities</a>
+		</li>
 		{% if is_granted('ROLE_ADMIN') %}
 			<li class=" h-full ">
 				<a class="h-full text-center px-3 flex items-center hover:bg-violet-100 hover:text-gray-600 transition ease-in-out duration-300 {{app.request.attributes.get('_route') == 'user_index' ? 'border-b-2 border-b-white' : ''}}" href="{{ path('user_index') }}">Users</a>

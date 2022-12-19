@@ -22,6 +22,9 @@ class CityController extends AbstractController
     #[Route('/cities', name: 'city_index')]
     public function index(): Response
     {
+
+        // $this->cityRepository->updateCities();
+
         $cities = $this->cityRepository->findAll();
         return $this->render('city/index.html.twig', [
             'cities' => $cities,
@@ -56,5 +59,13 @@ class CityController extends AbstractController
     #[Route('/city/update', name: 'city_update')]
     public function update(Request $request): Response
     {
+    }
+
+
+    #[Route('/city/show/{id}', name: 'city_show')]
+    public function show($id): Response
+    {
+        $city = $this->cityRepository->find($id);
+        return $this->render(view: 'city/show.html.twig', parameters: ['city' => $city]);
     }
 }
